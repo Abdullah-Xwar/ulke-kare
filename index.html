@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kareli Kağıt Ülke Savaşları - Ultra HD Master Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #f3f0ea;
+            --paper-white: #faf8f5;
+            --grid-line: #e2dcd0;
+            --text-color: #3f3d38;
+            --accent-color: #7c9082;
+            --accent-hover: #65776b;
+            --danger-color: #d88c81;
+            --success-color: #8ab6d6;
+            --shadow: 4px 4px 0px rgba(63, 61, 56, 0.15);
+            --border: 2px solid #3f3d38;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+                linear-gradient(var(--grid-line) 1px, transparent 1px);
+            background-size: 24px 24px;
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            overflow: hidden;
+            padding: 8px 0;
+            animation: fadeInBody 0.8s ease-out;
+        }
+
+        @keyframes fadeInBody {
+            0% { opacity: 0; transform: scale(0.98); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        #fx-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        header {
+            text-align: center;
+            padding: 6px 18px;
+            background: rgba(250, 248, 245, 0.95);
+            border: var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            margin-bottom: 4px;
+            animation: headerBounce 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes headerBounce {
+            0% { transform: translateY(0) rotate(-0.5deg); }
+            100% { transform: translateY(-2px) rotate(0.5deg); }
+        }
+
+        h1 {
+            font-size: 1.25rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            text-shadow: 2px 2px 0px rgba(124, 144, 130, 0.3);
+        }
+
+        .container {
+            width: 96%;
+            max-width: 950px;
+            height: calc(100vh - 72px);
+            background: rgba(250, 248, 245, 0.96);
+            border: var(--border);
+            box-shadow: 6px 6px 0px rgba(63, 61, 56, 0.2);
+            border-radius: 12px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            backdrop-filter: blur(4px);
+            animation: containerSlideUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes containerSlideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Kurulum Ekranı */
+        #setup-screen {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            width: 100%;
+            max-width: 420px;
+            margin: auto;
+            align-items: center;
+            background: var(--paper-white);
+            padding: 18px;
+            border: var(--border);
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            animation: setupAppear 0.4s ease-out;
+        }
+
+        @keyframes setupAppear {
+            0% { transform: scale(0.9); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 4px;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        input, select {
+            padding: 7px 10px;
+            font-family: 'Quicksand', sans-serif;
+            border: 2px solid var(--text-color);
+            background: #fff;
+            font-size: 0.9rem;
+            outline: none;
+            border-radius: 6px;
+            box-shadow: 2px 2px 0px rgba(63,61,56,0.1);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        input:focus, select:focus {
+            border-color: var(--accent-color);
+            background: #fffdf9;
+            transform: scale(1.01);
+            box-shadow: 3px 3px 0px var(--accent-color);
+        }
+
+        button {
+            padding: 8px 16px;
+            font-family: 'Quicksand', sans-serif;
+            background: var(--accent-color);
+            color: #fff;
+            border: var(--border);
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 3px 3px 0px var(--text-color);
+            border-radius: 6px;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 4px 5px 0px var(--text-color);
+        }
+
+        button:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0px var(--text-color);
+        }
+
+        #player-configs {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+
+        .player-card {
+            border: 2px dashed var(--text-color);
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            background: #fff;
+            border-radius: 6px;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.05);
+            animation: cardPopup 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+            transition: transform 0.2s;
+        }
+
+        .player-card:hover {
+            transform: translateX(3px);
+            border-style: solid;
+        }
+
+        @keyframes cardPopup {
+            0% { opacity: 0; transform: scale(0.9) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        /* Oyun Ekranı */
+        #game-screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            animation: fadeInGame 0.5s ease-out;
+        }
+
+        @keyframes fadeInGame {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        #scoreboard {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            width: 100%;
+            border-bottom: 2px dashed var(--grid-line);
+            padding-bottom: 6px;
+        }
+
+        .score-pill {
+            padding: 5px 12px;
+            border: var(--border);
+            font-weight: 700;
+            font-size: 0.85rem;
+            box-shadow: 2px 2px 0px rgba(63,61,56,0.15);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff;
+            border-radius: 20px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            animation: pillBounce 0.4s ease-out;
+        }
+
+        @keyframes pillBounce {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .score-pill.active-turn {
+            transform: scale(1.06) translateY(-3px);
+            box-shadow: 5px 5px 0px var(--accent-color);
+            border-color: var(--accent-color);
+            background: #f0f4f1;
+            animation: activePulse 1.2s infinite alternate;
+        }
+
+        @keyframes activePulse {
+            0% { box-shadow: 3px 3px 0px var(--accent-color); }
+            100% { box-shadow: 6px 6px 0px var(--success-color); transform: scale(1.08) translateY(-4px); }
+        }
+
+        .color-dot {
+            width: 12px;
+            height: 12px;
+            border: 1.5px solid var(--text-color);
+            border-radius: 50%;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+
+        .score-pill:hover .color-dot {
+            transform: rotate(180deg) scale(1.2);
+        }
+
+        /* Harita / Izgara Alanı */
+        #map-container {
+            position: relative;
+            border: var(--border);
+            background: #fff;
+            box-shadow: 5px 5px 0px rgba(63,61,56,0.15);
+            border-radius: 6px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: box-shadow 0.3s;
+        }
+
+        #map-container:hover {
+            box-shadow: 7px 7px 0px rgba(63,61,56,0.25);
+        }
+
+        #game-grid {
+            display: grid;
+            grid-template-columns: repeat(30, 17px);
+            grid-template-rows: repeat(30, 17px);
+        }
+
+        .grid-cell {
+            width: 17px;
+            height: 17px;
+            border: 1px solid #f0ece1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8px;
+            font-weight: bold;
+            position: relative;
+            cursor: crosshair;
+            transition: background 0.2s, transform 0.2s, filter 0.2s;
+        }
+
+        .grid-cell:hover {
+            filter: brightness(0.88);
+            transform: scale(1.25);
+            z-index: 20;
+            border: 1px solid var(--text-color);
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+        }
+
+        @keyframes blockDrop {
+            0% { transform: scale(0) rotate(-220deg); opacity: 0; border-radius: 50%; }
+            70% { transform: scale(1.2) rotate(10deg); opacity: 1; }
+            100% { transform: scale(1) rotate(0deg); opacity: 1; border-radius: 0%; }
+        }
+
+        .animated-block {
+            animation: blockDrop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .capital-star {
+            animation: starSpin 2.5s linear infinite, starGlow 1s infinite alternate;
+            display: inline-block;
+            color: #d4af37;
+            font-size: 9px;
+        }
+
+        @keyframes starSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.3); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        @keyframes starGlow {
+            0% { text-shadow: 0 0 2px #d4af37; }
+            100% { text-shadow: 0 0 8px #ffdf00, 0 0 12px #ff4d4d; }
+        }
+
+        /* Alt Kontrol Paneli */
+        #control-panel {
+            width: 100%;
+            border: var(--border);
+            padding: 8px 14px;
+            background: var(--paper-white);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: space-around;
+            box-shadow: var(--shadow);
+            border-radius: 8px;
+            animation: panelFadeIn 0.5s ease-out;
+        }
+
+        @keyframes panelFadeIn {
+            0% { opacity: 0; transform: translateY(10px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: center;
+        }
+
+        .control-group label {
+            font-size: 0.75rem;
+            color: #666;
+            text-transform: uppercase;
+        }
+
+        .num-btn {
+            padding: 5px 9px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #fff;
+            color: var(--text-color);
+            border: var(--border);
+            box-shadow: 2px 2px 0px var(--text-color);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .num-btn:hover {
+            transform: translateY(-1px);
+            background: #f0ede6;
+        }
+
+        .num-btn.selected {
+            background: var(--accent-color) !important;
+            color: #fff !important;
+            transform: translate(-1px, -1px) scale(1.05);
+            box-shadow: 3px 3px 0px var(--text-color);
+            animation: btnPulse 1s infinite alternate;
+        }
+
+        @keyframes btnPulse {
+            0% { border-color: var(--text-color); }
+            100% { border-color: var(--success-color); }
+        }
+
+        .dice-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dice-box {
+            width: 44px;
+            height: 44px;
+            perspective: 200px;
+            cursor: pointer;
+        }
+
+        #dice {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 3px 3px 0px var(--text-color);
+            border-radius: 8px;
+            transform-style: preserve-3d;
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #dice.rolling {
+            animation: realDiceRoll 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) infinite;
+            background: #fdf6e2;
+            color: #d9534f;
+        }
+
+        @keyframes realDiceRoll {
+            0% { transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg) scale(1); }
+            25% { transform: rotateX(180deg) rotateY(90deg) rotateZ(45deg) scale(1.1); }
+            50% { transform: rotateX(360deg) rotateY(180deg) rotateZ(90deg) scale(0.95); }
+            75% { transform: rotateX(540deg) rotateY(270deg) rotateZ(135deg) scale(1.1); }
+            100% { transform: rotateX(720deg) rotateY(360deg) rotateZ(180deg) scale(1); }
+        }
+
+        #roll-btn {
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            animation: rollBtnGlow 2s infinite alternate;
+        }
+
+        @keyframes rollBtnGlow {
+            0% { box-shadow: 2px 2px 0px var(--text-color); }
+            100% { box-shadow: 3px 3px 0px var(--success-color); transform: translateY(-1px); }
+        }
+
+        #log-box {
+            width: 100%;
+            height: 42px;
+            border: 2px solid var(--grid-line);
+            background: #fff;
+            padding: 5px 10px;
+            font-size: 0.82rem;
+            overflow-y: auto;
+            border-radius: 6px;
+            box-shadow: inset 2px 2px 0px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .log-entry {
+            animation: fadeInLog 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        @keyframes fadeInLog {
+            0% { opacity: 0; transform: translateX(-10px) scale(0.95); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        #placement-instruction {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-align: center;
+            background: #fdf8e2;
+            padding: 5px 12px;
+            border: 2px dashed #e6cc65;
+            border-radius: 6px;
+            box-shadow: 2px 2px 0px rgba(230, 204, 101, 0.3);
+            animation: instructionPulse 1.5s infinite alternate;
+        }
+
+        @keyframes instructionPulse {
+            0% { transform: scale(1); border-color: #e6cc65; }
+            100% { transform: scale(1.01); border-color: #d9534f; background: #fff4f4; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="fx-canvas"></canvas>
+
+    <header>
+        <h1>Kareli Kağıt Ülke Savaşları</h1>
+    </header>
+
+    <div class="container">
+        <!-- 1. Aşama: Oyuncu Sayısı ve Bilgileri (2-6 Oyuncu) -->
+        <div id="setup-screen">
+            <div class="form-group">
+                <label for="player-count">Oyuncu Sayısı (2-6):</label>
+                <select id="player-count">
+                    <option value="2">2 Oyuncu</option>
+                    <option value="3">3 Oyuncu</option>
+                    <option value="4">4 Oyuncu</option>
+                    <option value="5">5 Oyuncu</option>
+                    <option value="6">6 Oyuncu</option>
+                </select>
+            </div>
+            <button id="btn-next-setup">Devam Et</button>
+            <div id="player-configs"></div>
+            <button id="btn-start-game" class="hidden">Oyunu Başlat ve Yerleştir</button>
+        </div>
+
+        <!-- 2. Aşama: Oyun Alanı -->
+        <div id="game-screen">
+            <div id="scoreboard"></div>
+            <div id="placement-instruction">Sıradaki Ülke, 7x7 topraklarını yerleştirmek için haritada bir nokta seçsin!</div>
+            
+            <div id="map-container">
+                <div id="game-grid"></div>
+            </div>
+
+            <div id="control-panel">
+                <div class="control-group">
+                    <label>Sıradaki Ülke</label>
+                    <span id="current-player-turn" style="font-weight:700; font-size:0.95rem; color:var(--accent-color);">-</span>
+                </div>
+                <div class="control-group">
+                    <label>Hedef Ülke</label>
+                    <select id="target-country-select" style="padding: 4px; font-size: 0.8rem;"></select>
+                </div>
+                <div class="control-group">
+                    <label>Sayı Seç</label>
+                    <div style="display: flex; gap: 4px;">
+                        <button class="num-btn selected" data-val="5">5</button>
+                        <button class="num-btn" data-val="10">10</button>
+                        <button class="num-btn" data-val="15">15</button>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label>Zar (+ / -)</label>
+                    <div class="dice-container">
+                        <div class="dice-box" id="dice-box">
+                            <div id="dice">-</div>
+                        </div>
+                        <button id="roll-btn">Zar At</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="log-box"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- Web Audio API & Ultra Gerçekçi Sinematik Ses Motoru ---
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(type) {
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            const now = audioCtx.currentTime;
+
+            if (type === 'click') {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(450, now);
+                osc.frequency.exponentialRampToValueAtTime(800, now + 0.03);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.03);
+            } else if (type === 'dice_roll') {
+                // Çok katmanlı zar takırtı/çarpma ses efekti (White noise + filtre + ritmik darbe)
+                for (let i = 0; i < 4; i++) {
+                    const tOffset = i * 0.08 + Math.random() * 0.03;
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(100 + Math.random() * 150, now + tOffset);
+                    osc.frequency.exponentialRampToValueAtTime(50, now + tOffset + 0.05);
+                    gain.gain.setValueAtTime(0.12, now + tOffset);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + tOffset + 0.05);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(now + tOffset);
+                    osc.stop(now + tOffset + 0.05);
+                }
+            } else if (type === 'plus') {
+                // Gerçekçi Zafer / Majör Akor Arpej Efekti
+                const notes = [523.25, 659.25, 783.99, 1046.50]; // Do, Mi, Sol, Do (Üst)
+                notes.forEach((freq, idx) => {
+                    const osc = audioCtx.createOscillator();
+                    const gain = audioCtx.createGain();
+                    const t = now + idx * 0.07;
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(freq, t);
+                    gain.gain.setValueAtTime(0.1, t);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.4);
+                    osc.connect(gain);
+                    gain.connect(audioCtx.destination);
+                    osc.start(t);
+                    osc.stop(t + 0.4);
+                });
+            } else if (type === 'minus') {
+                // Gerçekçi Kayıp / Çöküş Efekti (Derin bas dalgası ve dissonans)
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(220, now);
+                osc.frequency.linearRampToValueAtTime(70, now + 0.3);
+                gain.gain.setValueAtTime(0.15, now);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.35);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.35);
+            } else if (type === 'block_drop') {
+                // Ahşap/Kağıt üzerine blok yerleşme tok sesi
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(180 + Math.random() * 80, now);
+                osc.frequency.exponentialRampToValueAtTime(45, now + 0.06);
+                gain.gain.setValueAtTime(0.08, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start(now);
+                osc.stop(now + 0.06);
+            }
+        }
+
+        // --- Efekt Canvası & Canlı Animasyon Partikülleri ---
+        const fxCanvas = document.getElementById('fx-canvas');
+        const fxCtx = fxCanvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            fxCanvas.width = window.innerWidth;
+            fxCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 7 + 3;
+                this.speedX = (Math.random() - 0.5) * 8;
+                this.speedY = (Math.random() - 0.5) * 8 - 2;
+                this.gravity = 0.28;
+                this.alpha = 1;
+                this.decay = Math.random() * 0.03 + 0.02;
+                this.rotation = Math.random() * 360;
+                this.rotSpeed = (Math.random() - 0.5) * 10;
+            }
+            update() {
+                this.speedY += this.gravity;
+                this.x += this.speedX;
+                this.y += this.speedY;
+                this.alpha -= this.decay;
+                this.rotation += this.rotSpeed;
+            }
+            draw() {
+                fxCtx.save();
+                fxCtx.translate(this.x, this.y);
+                fxCtx.rotate((this.rotation * Math.PI) / 180);
+                fxCtx.globalAlpha = Math.max(0, this.alpha);
+                fxCtx.fillStyle = this.color;
+                fxCtx.fillRect(-this.size / 2, -this.size / 2, this.size, this.size);
+                fxCtx.restore();
+            }
+        }
+
+        function triggerConfetti(clientX, clientY, color = '#7c9082') {
+            for (let i = 0; i < 22; i++) {
+                particles.push(new Particle(clientX, clientY, color));
+            }
+        }
+
+        function animateParticles() {
+            fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                if (p.alpha <= 0) {
+                    particles.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // --- Oyun Durumu ---
+        let players = [];
+        let gridData = [];
+        const GRID_SIZE = 30;
+        let placementPhase = true;
+        let currentPlacementIndex = 0;
+        let currentTurnIndex = 0;
+        let selectedValue = 5;
+
+        const defaultColors = ['#9bb1a8', '#9ac8eb', '#f6c28b', '#d88c81', '#b5a1cc', '#e2b3c2'];
+
+        const setupScreen = document.getElementById('setup-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const playerCountSelect = document.getElementById('player-count');
+        const btnNextSetup = document.getElementById('btn-next-setup');
+        const playerConfigsDiv = document.getElementById('player-configs');
+        const btnStartGame = document.getElementById('btn-start-game');
+        const gameGridEl = document.getElementById('game-grid');
+        const scoreboardEl = document.getElementById('scoreboard');
+        const placementInstruction = document.getElementById('placement-instruction');
+        const currentPlayerTurnEl = document.getElementById('current-player-turn');
+        const targetCountrySelect = document.getElementById('target-country-select');
+        const rollBtn = document.getElementById('roll-btn');
+        const diceEl = document.getElementById('dice');
+        const logBox = document.getElementById('log-box');
+
+        function createPlayerConfigInputs() {
+            playSound('click');
+            const count = parseInt(playerCountSelect.value);
+            playerConfigsDiv.innerHTML = '';
+            
+            for (let i = 0; i < count; i++) {
+                const card = document.createElement('div');
+                card.className = 'player-card';
+                card.style.animationDelay = `${i * 0.05}s`;
+                card.innerHTML = `
+                    <strong style="font-size:0.8rem;">Ülke ${i + 1} Ayarları</strong>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr auto; gap: 6px; align-items: center;">
+                        <input type="text" class="p-country" value="Ülke ${i + 1}" required placeholder="Ülke Adı">
+                        <input type="text" class="p-capital" value="Başkent ${i + 1}" required placeholder="Başkent Adı">
+                        <input type="color" class="p-color" value="${defaultColors[i]}" style="width: 30px; height: 30px; padding:0; border:none; background:none; cursor:pointer;">
+                    </div>
+                `;
+                playerConfigsDiv.appendChild(card);
+            }
+            btnStartGame.classList.remove('hidden');
+            btnNextSetup.classList.add('hidden');
+            playerCountSelect.disabled = true;
+        }
+
+        btnNextSetup.addEventListener('click', createPlayerConfigInputs);
+
+        btnStartGame.addEventListener('click', () => {
+            playSound('click');
+            const countryInputs = document.querySelectorAll('.p-country');
+            const capitalInputs = document.querySelectorAll('.p-capital');
+            const colorInputs = document.querySelectorAll('.p-color');
+
+            players = [];
+            for (let i = 0; i < countryInputs.length; i++) {
+                const cName = countryInputs[i].value || `Ülke ${i+1}`;
+                const capName = capitalInputs[i].value || `Başkent ${i+1}`;
+                players.push({
+                    id: i,
+                    country: `${cName} (${capName})`,
+                    capital: capName,
+                    color: colorInputs[i].value,
+                    blocks: 0,
+                    placed: false
+                });
+            }
+
+            setupScreen.classList.add('hidden');
+            gameScreen.style.display = 'flex';
+
+            initGrid();
+            renderScoreboard();
+            updatePlacementTurn();
+        });
+
+        function initGrid() {
+            gridData = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(null));
+            renderGridDOM();
+        }
+
+        function renderGridDOM() {
+            gameGridEl.innerHTML = '';
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'grid-cell';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    const cellData = gridData[r][c];
+                    if (cellData) {
+                        cell.style.backgroundColor = cellData.color;
+                        if (cellData.isCapital) {
+                            cell.innerHTML = '<span class="capital-star">★</span>';
+                            cell.title = `${cellData.country} - Başkent: ${cellData.capitalName}`;
+                        } else {
+                            cell.innerText = '';
+                        }
+                    } else {
+                        cell.style.backgroundColor = '#fff';
+                    }
+
+                    cell.addEventListener('click', (e) => handleCellClick(r, c, e));
+                    gameGridEl.appendChild(cell);
+                }
+            }
+        }
+
+        function renderScoreboard() {
+            scoreboardEl.innerHTML = '';
+            players.forEach((p, idx) => {
+                const count = countPlayerBlocks(p.id);
+                p.blocks = count;
+                const pill = document.createElement('div');
+                pill.className = `score-pill ${!placementPhase && idx === currentTurnIndex ? 'active-turn' : ''}`;
+                pill.innerHTML = `
+                    <span class="color-dot" style="background-color: ${p.color};"></span>
+                    ${p.country}: <span id="score-${p.id}">${count}</span>
+                `;
+                scoreboardEl.appendChild(pill);
+            });
+            updateTargetSelect();
+        }
+
+        function countPlayerBlocks(playerId) {
+            let count = 0;
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    if (gridData[r][c] && gridData[r][c].playerId === playerId) {
+                        count++;
+                    }
+                }
+            }
+            return count;
+        }
+
+        function updatePlacementTurn() {
+            if (currentPlacementIndex < players.length) {
+                const p = players[currentPlacementIndex];
+                placementInstruction.innerText = `${p.country}, 7x7 topraklarını yerleştirmek için haritada bir nokta seç!`;
+            } else {
+                placementPhase = false;
+                placementInstruction.innerText = "Tüm ülkeler yerleştirildi! Savaş başladı!";
+                setTimeout(() => {
+                    placementInstruction.classList.add('hidden');
+                }, 3000);
+                initBattlePhase();
+            }
+        }
+
+        async function handleCellClick(r, c, event) {
+            if (placementPhase) {
+                const p = players[currentPlacementIndex];
+                if (r + 7 > GRID_SIZE || c + 7 > GRID_SIZE) {
+                    addLog("Buraya 7x7 ülke sığmaz! Başka bir yer seç.");
+                    playSound('minus');
+                    return;
+                }
+
+                let overlap = false;
+                for (let dr = 0; dr < 7; dr++) {
+                    for (let dc = 0; dc < 7; dc++) {
+                        if (gridData[r + dr][c + dc] !== null) {
+                            overlap = true;
+                            break;
+                        }
+                    }
+                    if (overlap) break;
+                }
+
+                if (overlap) {
+                    addLog("Bu bölge başka bir ülkeyle çakışıyor! Başka bir yer seç.");
+                    playSound('minus');
+                    return;
+                }
+
+                const capRow = Math.floor(Math.random() * 7);
+                const capCol = Math.floor(Math.random() * 7);
+
+                const rect = event.target.getBoundingClientRect();
+                triggerConfetti(rect.left + rect.width / 2, rect.top + rect.height / 2, p.color);
+
+                for (let dr = 0; dr < 7; dr++) {
+                    for (let dc = 0; dc < 7; dc++) {
+                        const targetR = r + dr;
+                        const targetC = c + dc;
+                        gridData[targetR][targetC] = {
+                            playerId: p.id,
+                            country: p.country,
+                            color: p.color,
+                            isCapital: (dr === capRow && dc === capCol),
+                            capitalName: p.capital
+                        };
+                        
+                        const cellNode = gameGridEl.children[targetR * GRID_SIZE + targetC];
+                        if (cellNode) {
+                            cellNode.style.backgroundColor = p.color;
+                            if (dr === capRow && dc === capCol) {
+                                cellNode.innerHTML = '<span class="capital-star">★</span>';
+                            }
+                            cellNode.classList.add('animated-block');
+                            setTimeout(() => cellNode.classList.remove('animated-block'), 400);
+                        }
+                        playSound('block_drop');
+                    }
+                    await new Promise(res => setTimeout(res, 20));
+                }
+
+                playSound('plus');
+                addLog(`${p.country} başarıyla kuruldu!`);
+                p.placed = true;
+                currentPlacementIndex++;
+                renderScoreboard();
+                updatePlacementTurn();
+            }
+        }
+
+        function initBattlePhase() {
+            document.getElementById('control-panel').style.display = 'flex';
+            renderScoreboard();
+            updateTurnDisplay();
+        }
+
+        function updateTurnDisplay() {
+            const p = players[currentTurnIndex];
+            if (p.blocks <= 0) {
+                nextTurn();
+                return;
+            }
+            currentPlayerTurnEl.innerText = p.country;
+            renderScoreboard();
+        }
+
+        function updateTargetSelect() {
+            targetCountrySelect.innerHTML = '';
+            const activePlayer = players[currentTurnIndex];
+            players.forEach(p => {
+                if (activePlayer && p.id !== activePlayer.id && p.blocks > 0) {
+                    const opt = document.createElement('option');
+                    opt.value = p.id;
+                    opt.innerText = p.country;
+                    targetCountrySelect.appendChild(opt);
+                }
+            });
+        }
+
+        document.querySelectorAll('.num-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                playSound('click');
+                document.querySelectorAll('.num-btn').forEach(b => b.classList.remove('selected'));
+                e.target.classList.add('selected');
+                selectedValue = parseInt(e.target.dataset.val);
+            });
+        });
+
+        rollBtn.addEventListener('click', () => {
+            if (placementPhase) return;
+
+            const activePlayer = players[currentTurnIndex];
+            const targetId = parseInt(targetCountrySelect.value);
+            
+            if (isNaN(targetId)) {
+                addLog("Hedef ülke kalmadı!");
+                return;
+            }
+
+            const targetPlayer = players.find(p => p.id === targetId);
+
+            let transferAmount = selectedValue;
+            if (activePlayer.blocks < transferAmount) {
+                transferAmount = activePlayer.blocks;
+            }
+
+            if (transferAmount <= 0) {
+                addLog(`${activePlayer.country} hamle yapacak bloğa sahip değil!`);
+                nextTurn();
+                return;
+            }
+
+            rollBtn.disabled = true;
+            diceEl.classList.add('rolling');
+            playSound('dice_roll');
+
+            setTimeout(() => {
+                diceEl.classList.remove('rolling');
+                rollBtn.disabled = false;
+
+                const rollResult = Math.random() < 0.5 ? '+' : '-';
+                diceEl.innerText = rollResult;
+
+                const diceRect = diceEl.getBoundingClientRect();
+
+                if (rollResult === '+') {
+                    playSound('plus');
+                    triggerConfetti(diceRect.left + diceRect.width/2, diceRect.top + diceRect.height/2, '#8ab6d6');
+                    transferBlocks(targetPlayer.id, activePlayer.id, transferAmount);
+                    addLog(`+ ZAR! ${activePlayer.country}, ${targetPlayer.country} ülkesinden ${transferAmount} blok ele geçirdi!`);
+                } else {
+                    playSound('minus');
+                    triggerConfetti(diceRect.left + diceRect.width/2, diceRect.top + diceRect.height/2, '#d88c81');
+                    transferBlocks(activePlayer.id, targetPlayer.id, transferAmount);
+                    addLog(`- ZAR! ${activePlayer.country}, ${targetPlayer.country} ülkesine ${transferAmount} blok kaptırdı!`);
+                }
+
+                renderGridDOM();
+                renderScoreboard();
+                checkWinCondition();
+                nextTurn();
+            }, 650);
+        });
+
+        function transferBlocks(fromId, toId, amount) {
+            let moved = 0;
+            for (let r = 0; r < GRID_SIZE; r++) {
+                for (let c = 0; c < GRID_SIZE; c++) {
+                    if (moved < amount && gridData[r][c] && gridData[r][c].playerId === fromId) {
+                        const toPlayer = players.find(p => p.id === toId);
+                        gridData[r][c] = {
+                            playerId: toPlayer.id,
+                            country: toPlayer.country,
+                            color: toPlayer.color,
+                            isCapital: false,
+                            capitalName: null
+                        };
+                        moved++;
+                    }
+                }
+            }
+        }
+
+        function nextTurn() {
+            currentTurnIndex = (currentTurnIndex + 1) % players.length;
+            let loopCount = 0;
+            while (players[currentTurnIndex].blocks <= 0 && loopCount < players.length) {
+                currentTurnIndex = (currentTurnIndex + 1) % players.length;
+                loopCount++;
+            }
+            updateTurnDisplay();
+        }
+
+        function checkWinCondition() {
+            const alivePlayers = players.filter(p => countPlayerBlocks(p.id) > 0);
+            if (alivePlayers.length === 1) {
+                playSound('plus');
+                for(let i=0; i<5; i++) {
+                    setTimeout(() => {
+                        triggerConfetti(window.innerWidth * Math.random(), window.innerHeight * Math.random(), '#d4af37');
+                    }, i * 200);
+                }
+                alert(`MUHTEŞEM ZAFER! Kazanan Ülke: ${alivePlayers[0].country}!`);
+                location.reload();
+            }
+        }
+
+        function addLog(text) {
+            const p = document.createElement('div');
+            p.className = 'log-entry';
+            p.innerText = `> ${text}`;
+            logBox.prepend(p);
+        }
+    </script>
+</body>
+</html>
